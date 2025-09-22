@@ -1,0 +1,12 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+
+  printf ("Enter programs to run.\n");
+  
+  char *input;
+  size_t inSize;
+  getline(input, inSize, stdin);
+}

@@ -1,0 +1,22 @@
+#define _POSIX_C_SOURCE 200809L
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+
+  printf("Enter programs to run.\n");
+
+  char *input;
+  size_t *inSize;
+  getline(&input, inSize, stdin);
+
+  char *delimptr;
+  char *token;
+
+  while (token = strtok_r(input, "/", &delimptr); token != NULL; token = strtok_r(NULL, "/",
+        &delimptr)) {
+   
+  }
+
+}
