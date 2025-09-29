@@ -1,0 +1,18 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) {
+  char *in = NULL;       // input string pointer
+  size_t buffersize = 0; // size of input string pointer (bytes)
+
+  printf("Please enter some text: ");
+  getline(&in, &buffersize, stdin);
+
+  char *delimptr = NULL;
+  for (char *token = NULL; token != NULL;
+       token = strtok_r(in, " ", &delimptr)) {
+  }
+}

@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) {
+  char *in = NULL;
+  size_t *buffersize = 0;
+  printf("Please enter some text: ");
+  getline(&in, &buffersize, stdin);
+  char *delimptr = NULL;
+  while (strtok_r(in, " ", &delimptr) != NULL) {
+  }

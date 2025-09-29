@@ -1,0 +1,14 @@
+#include <signal.h>
+#include <sys/wait.h>
+
+struct sigaction {
+  void (*signal_handler)(void);
+  int sa_flags = 0;
+  sigset_t sa_mask;
+  sigemptyset(sa_mask);
+
+};
+
+int main() {
+  void (*signal_handler)(void);
+  sigaction (SIGINT,

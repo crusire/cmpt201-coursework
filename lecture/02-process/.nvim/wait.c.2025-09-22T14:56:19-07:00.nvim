@@ -1,0 +1,20 @@
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdio.h>
+
+int main() {
+  pid_t pid = fork();
+  int status = 0;
+
+  if (pid == 0) {
+    execl("/usr/bin/ls", "/usr/bin/ls", "-a", "-l", NULL);
+
+  } else {
+    waitpid(pid, &status, 0);
+    if (WIFEXITED(status) != 0) {
+      printf("%d\n", status);
+    } else {
+      printf("wait exited with a problem.\n");
+    }
+  }
+}

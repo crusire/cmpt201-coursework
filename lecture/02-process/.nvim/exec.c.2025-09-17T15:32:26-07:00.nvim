@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void) {
+  printf("Hello World!");
+  char *path = "ls";
+  execl(path, "-a", NULL);
+  fork();
+  execl(path, "-a", "-l", "-h", NULL);
+  printf("%d\n", getpid());
+}

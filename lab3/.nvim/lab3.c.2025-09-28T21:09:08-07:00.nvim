@@ -1,0 +1,53 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void printArray(char *array[], int *arraysize) {
+  for (int i = 0; i < *arraysize; i++) {
+    printf("%s\n", array[i]);
+  }
+}
+
+void addItem(char *array[], char *newitem, int *arraysize) {
+  if (*arraysize == 5) {
+
+    char *buffer = array[4];
+    array[4] = array[3];
+    array[3] = array[2];
+    array[2] = array[1];
+    array[1] = array[0];
+    array[0] = newitem;
+
+    free(buffer);
+
+  } else {
+
+    array[*arraysize] = newitem;
+    arraysize++;
+  }
+}
+
+int main() {
+
+  char *inputs[5];
+  int inputcount = 0;
+
+  char *buffer;
+  size_t buffersize;
+
+  while(1) {
+
+    printf("Enter input: ");
+    getline(&buffer, &buffersize, stdin);
+    
+    if (strcmp(buffer, "print\n") == 0) {
+      printArray(inputs, &inputcount);
+    } else {
+      addItem(inputs, buffer, &inputcount);
+    }
+  }
+
+  free(buffer);
+}

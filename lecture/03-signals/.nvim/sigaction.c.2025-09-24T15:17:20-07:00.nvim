@@ -1,0 +1,18 @@
+#define _POSIX_C_SOURCE 200809
+#include <signal.h>
+#include <stdio.h>
+
+struct sigaction handler {
+  act.sa_handler = signal_handler; 
+  handler.sa_flags = 0;
+  sigemptyset(&handler.sa_mask);
+};
+
+void sighandle() {
+  write(
+}
+
+int main() {
+  void (*signal_handler)(int);
+  sigaction(SIGINT, handler, NULL);
+}

@@ -1,0 +1,10 @@
+#include <unistd.h>
+#include <stdio.h>
+
+int main(void){
+  printf("Hello World!");
+  execl(ls, -a, NULL);
+  fork();
+  execl(ls, -a, -l, -h, NULL);
+  printf("%d\n", getpid());
+}

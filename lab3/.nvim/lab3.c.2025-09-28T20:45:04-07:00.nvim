@@ -1,0 +1,71 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+typedef struct {
+  char *items[5];
+  int front;
+  int back;
+} Queue;
+
+void initQueue(Queue *);
+bool isFull(Queue *);
+void enqueue(Queue *, char *);
+void dequeue(Queue *);
+void printQueue(Queue *);
+
+void initQueue(Queue *q) {
+  q->front = -1;
+  q->back = 0;
+}
+
+bool isFull(Queue *q) {
+  return (q->back == 5);
+}
+
+// enqueue func must automatically dequeue when queue is full
+void enqueue(Queue *q, char *new) {
+   if (isFull(q)) {
+     dequeue(q);
+   }
+
+   q->items[q->back] = new;
+   q->back++;
+}
+
+void dequeue(Queue *q) {
+  free(q->items[q->front]);
+  q->front++;
+}
+
+void printQueue(Queue *q) {
+  for (int i = q->front + 1; i < q->back; i++) {
+    printf("%s\n", q->items[i]);
+  }
+}
+
+int main() {
+  Queue inputs;
+  initQueue(&inputs);
+  
+  char *buffer = "";
+  size_t buffersize;
+
+  while(1) {
+    
+    printf("Enter input: ");
+    getline(&buffer, &buffersize, stdin);
+
+    if (strcmp(buffer, "print")) {
+      enqueue(&inputs, buffer);
+    } else {
+      printQueue(&inputs);
+    }
+    
+  }
+
+  free(buffer);
+}
