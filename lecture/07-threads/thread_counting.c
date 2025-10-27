@@ -1,0 +1,32 @@
+#define _GNU_SOURCE
+
+#include <pthread.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+#define MAX 10000000
+
+int count = 0;
+
+void *counter(void *);
+
+void *counter(void *arg) {
+  for (int i = 0; i < MAX; i++) {
+    count += 1;
+  }
+  return NULL;
+}
+
+int main(void) {
+  pthread_t buffer;
+  pthread_create(&buffer, NULL, counter, NULL);
+
+  pthread_t buffer2;
+  pthread_create(&buffer2, NULL, counter, NULL);
+
+  pthread_join(buffer2, NULL);
+  pthread_join(buffer, NULL);
+
+  printf("%d\n", count);
+}

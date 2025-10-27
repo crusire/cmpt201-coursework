@@ -1,0 +1,24 @@
+#define _GNU_SOURCE
+
+#include <pthread.h>
+#include <string.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int print_stuff(char *msg) {
+  printf("%s", msg);
+  pid_t id = gettid();
+  printf("thread id: %d\n", id);
+  return(strlen(msg));
+}
+
+
+int main(void) {
+  pthread_t *buffer;
+
+  char *raw_msg = "hi\n";
+  void *msg = raw_msg;
+  void *(*func)(void *) = print_stuff(msg);
+
+  pthread_create(buffer, NULL, func, msg);
+}

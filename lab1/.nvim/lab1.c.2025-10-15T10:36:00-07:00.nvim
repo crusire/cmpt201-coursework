@@ -1,0 +1,38 @@
+#define _POSIX_C_SOURCE 200809L
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) {
+  char *in = NULL;       // input string pointer
+  size_t buffersize = 0; // size of input string pointer (bytes)
+
+  printf("Please enter some text: ");
+  ssize_t charsread = getline(&in, &buffersize, stdin);
+
+  // error handling
+  if (charsread < 0) {
+    perror("getline failed");
+    exit(EXIT_FAILURE);
+  }
+
+  printf("Tokens:\n");
+
+  char *delimptr = NULL;
+  // iterate over input string
+  for (char *token = strtok_r(in, " ", &delimptr); token != NULL;
+       token = strtok_r(NULL, " ", &delimptr)) {
+
+    // error handling
+    if (token < 0) {
+      perror("strtok_r failed");
+    }
+
+    // if no errors, go ahead and print
+    printf("  %s\n", token);
+  }
+
+  // clean up
+  free(in);
+}

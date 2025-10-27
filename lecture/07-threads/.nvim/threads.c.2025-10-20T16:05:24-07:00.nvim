@@ -1,0 +1,30 @@
+#define _GNU_SOURCE
+
+#include <pthread.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+void *print_stuff(void *);
+
+void *print_stuff(void *msg) {
+  char *msg_literal = msg;
+  printf("%s", msg_literal);
+  pid_t id = gettid();
+  printf("thread id: %d\n", id);
+  return (void *)strlen(msg_literal);
+}
+
+int main(void) {
+  pthread_t buffer;
+  char *raw_msg = "Hello World!\n";
+  void *msg = raw_msg;
+
+  pthread_create(&buffer, NULL, print_stuff, msg);
+
+  void *raw_len;
+  pthread_join(buffer, &raw_len);
+  unsigned long len = (unsigned long)raw_len;
+  printf("%lu\n", len);
+}
