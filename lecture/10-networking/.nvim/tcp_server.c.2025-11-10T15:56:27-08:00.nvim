@@ -1,0 +1,37 @@
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <sys/un.h>
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void) {
+  printf("SERVER:\n");
+
+  int socket_fd = socket(AF_UNIX, SOCK_STREAM, 0);
+  if (socket_fd == -1) {
+    perror("Socket creation fail!");
+    exit(EXIT_FAILURE);
+  }
+
+  struct sockaddr_un addr;
+  addr.sun_family = AF_UNIX;
+  snprintf(addr.sun_path, 108, "socket_fun");
+  if (bind(socket_fd, (struct sockaddr *)&addr, sizeof(struct sockaddr_un)) == -1) {
+    perror("Bind fail!");
+    exit(EXIT_FAILURE);
+  }
+
+  if (listen(socket_fd, 8) == -1) {
+    perror("Listen fail!");
+    exit(EXIT_FAILURE);
+  }
+  
+  int peer_fd = accept(socket_fd,NULL, NULL);
+  if (peer_fd == -1) {
+    perror("Connection fail!");
+    exit(EXIT_FAILURE);
+  }
+  // TODO:
+  // read client data
+  return 0;
+}

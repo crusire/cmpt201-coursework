@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <sys/stat.h>
+int main(int args, char *argv[]) {
+  char *filename = argv[1];
+  struct stat buf;
+
+  stat(filename, &buf);
+
+  if (S_ISREG(buf.st_mode)) {
+    printf("Regular file\n");
+  } else if (S_ISDIR(buf.st_mode)) {
+    printf("Directory\n");
+  } else {
+    printf("Other\n");
+  }
+}

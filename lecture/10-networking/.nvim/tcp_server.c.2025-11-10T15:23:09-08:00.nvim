@@ -1,0 +1,8 @@
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <stdio.h>
+
+int main(void) {
+  printf("SERVER:\n");
+  return 0;
+}
