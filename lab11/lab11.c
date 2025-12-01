@@ -62,7 +62,6 @@ int main() {
   const char *signature_files[] = {"signature1.sig", "signature2.sig",
                                    "signature3.sig"};
 
-  // TODO: Load the public key using PEM_read_PUBKEY
   EVP_PKEY *pubkey = NULL;
   FILE *pubkey_file = fopen("public_key.pem", "r");
   pubkey = PEM_read_PUBKEY(pubkey_file, NULL, NULL, NULL);
@@ -105,8 +104,6 @@ int verify(const char *message_path, const char *sign_path, EVP_PKEY *pubkey) {
   unsigned char message[MAX_FILE_SIZE];
   unsigned char signature[MAX_FILE_SIZE];
 
-  // TODO: Check if the message is authentic using the signature.
-  // Look at: https://wiki.openssl.org/index.php/EVP_Signing_and_Verifying
   memcpy(message, message_path, strlen(message_path) + 1);
   memcpy(signature, sign_path, strlen(sign_path) + 1);
 
